@@ -14,6 +14,8 @@
 		110D1430229F0B7000BCF483 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110D142E229F0B7000BCF483 /* LaunchScreen.storyboard */; };
 		110D143A22A1ABDA00BCF483 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D143922A1ABDA00BCF483 /* PickerViewController.swift */; };
 		110D143E22A591B200BCF483 /* CalculatorItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D143D22A591B200BCF483 /* CalculatorItemTableViewCell.swift */; };
+		110D144122A6F2E200BCF483 /* CalculatorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D144022A6F2E200BCF483 /* CalculatorItem.swift */; };
+		110D144422A8530A00BCF483 /* DecimalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D144322A8530A00BCF483 /* DecimalExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		110D1431229F0B7000BCF483 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		110D143922A1ABDA00BCF483 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		110D143D22A591B200BCF483 /* CalculatorItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorItemTableViewCell.swift; sourceTree = "<group>"; };
+		110D144022A6F2E200BCF483 /* CalculatorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorItem.swift; sourceTree = "<group>"; };
+		110D144322A8530A00BCF483 /* DecimalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 		110D1424229F0B6F00BCF483 /* RevBetCalc */ = {
 			isa = PBXGroup;
 			children = (
+				110D144222A852BD00BCF483 /* Extension */,
+				110D143F22A6F28600BCF483 /* Models */,
 				110D143C22A58EE600BCF483 /* View */,
 				110D143822A1AB6B00BCF483 /* ViewControllers */,
 				110D143722A1AAFF00BCF483 /* Storyboard */,
@@ -92,6 +98,22 @@
 				110D143D22A591B200BCF483 /* CalculatorItemTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		110D143F22A6F28600BCF483 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				110D144022A6F2E200BCF483 /* CalculatorItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		110D144222A852BD00BCF483 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				110D144322A8530A00BCF483 /* DecimalExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,8 +187,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				110D144122A6F2E200BCF483 /* CalculatorItem.swift in Sources */,
 				110D143E22A591B200BCF483 /* CalculatorItemTableViewCell.swift in Sources */,
 				110D143A22A1ABDA00BCF483 /* PickerViewController.swift in Sources */,
+				110D144422A8530A00BCF483 /* DecimalExtension.swift in Sources */,
 				110D1428229F0B6F00BCF483 /* MainViewController.swift in Sources */,
 				110D1426229F0B6F00BCF483 /* AppDelegate.swift in Sources */,
 			);

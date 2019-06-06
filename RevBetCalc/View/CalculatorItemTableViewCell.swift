@@ -11,7 +11,7 @@ import UIKit
 class CalculatorItemTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var valueVerticalStackView: UIStackView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,10 +20,9 @@ class CalculatorItemTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         //removes the tablecell background
-//        super.setSelected(selected, animated: animated)
+        super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-        valueLabel.backgroundColor = selected ? UIColor.lightGray : UIColor.white
     }
 
 }
