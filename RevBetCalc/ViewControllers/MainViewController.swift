@@ -109,6 +109,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func generateBetCalculatorItems(total : Int) {
         totalLabel.text = "$0.00"
         selectedItemIndex = 0
+        calculatorItems = []
         
         for i in 1...total {
             let calculatorItem : CalculatorItem = CalculatorItem(title: "\(i < 10 ? " " : "")\(i).")
@@ -506,6 +507,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func pickerViewSelected(betAmountSelectedIndex: Int, betTypeSelectedIndex: Int) {
         if checkifBetisLegal(betAmountIndex: betAmountSelectedIndex, betTypeIndex: betTypeSelectedIndex) {
+            
+            currentBetAmountSelectedIndex = betAmountSelectedIndex
+            currentBetTypeSelectedIndex = betTypeSelectedIndex
+            
             if previousBetAmountSelectedIndex != currentBetAmountSelectedIndex || previousBetTypeSelectedIndex != currentBetTypeSelectedIndex {
                 previousBetAmountSelectedIndex = currentBetAmountSelectedIndex
                 previousBetTypeSelectedIndex = currentBetTypeSelectedIndex
@@ -558,7 +563,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         }
                 }
                 
-                betButton.setTitle("\(betAmountString.uppercased()) \(betTypeString.uppercased())", for: .normal)
+                betButton.setTitle("\(betAmountString) \(betTypeString.uppercased())", for: .normal)
                 generateBetCalculatorItems(total: determineTotalBetCalculatorItems())
             }
             
