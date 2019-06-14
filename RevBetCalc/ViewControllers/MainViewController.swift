@@ -8,8 +8,8 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PickerViewDelegate {
+    
     @IBOutlet weak var betButton: UIButton!
     @IBOutlet weak var changeButton: UIButton!
     @IBOutlet weak var totalwagerLabel: UILabel!
@@ -53,6 +53,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         singlebtnDisabled = false;
         boxbtnDisabled = true;
         wheelbtnDisabled = true;
+        
+        control0Button.isSelected = true
         
         generateBetCalculatorItems(total: determineTotalBetCalculatorItems())
     }
@@ -128,17 +130,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         if(button.tag == 0) {
             generateBetCalculatorItems(total: determineTotalBetCalculatorItems())
         } else {
-//            try {
-//            for(int i = 1; i <= 20; i++) {
-//            int id = R.id.class.getField("number" + i).getInt(0);
-//            if(view.getId() == id) {
-//            numberClicked(i-1);
-//            }
-//            }
-//            }
-//            catch (Exception e) {
-//            e.printStackTrace();
-//            }
             numberClicked(tag: button.tag)
         }
     }
@@ -412,11 +403,177 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func controlButtonClicked(_ sender: Any) {
+        let button : UIButton = sender as! UIButton
+        let selectedTag = button.tag
+        
+        switch selectedTag {
+        case 1:
+            if !boxbtnDisabled {
+                controlbtnClicked(tag: selectedTag)
+            }
+        case 2:
+            if !wheelbtnDisabled {
+                controlbtnClicked(tag: selectedTag)
+            }
+        default:
+            if !singlebtnDisabled {
+                controlbtnClicked(tag: selectedTag)
+            }
+        }
+    }
+    
+    func controlbtnClicked(tag : Int) {
+        if(selectedControl != tag) {
+            selectedControl = tag
+            generateBetCalculatorItems(total: determineTotalBetCalculatorItems())
+        }
+    
+        clickedControlFields(tag: tag)
+    }
+    
+    func clickedControlFields(tag: Int) {
+        control0Button.isSelected = control0Button.tag == selectedControl
+        control1Button.isSelected = control1Button.tag == selectedControl
+        control2Button.isSelected = control2Button.tag == selectedControl
+    }
+    
+    func checkifBetisLegal(betAmountIndex: Int, betTypeIndex: Int) -> Bool {
+        var legal : Bool = true
+        var amount : String = "10¢"
+    
+        switch betTypeIndex {
+        //Needs $2
+        case 0,
+             1,
+             2,
+             3,
+             4,
+             9,
+             13:
+            if betAmountIndex < 3 {
+                legal = false
+                amount = "$2"
+            }
+        //Needs $1
+        case 5,
+             6,
+             10,
+             14:
+            if betAmountIndex < 2 {
+                legal = false
+                amount = "$1"
+            }
+        //Needs 50c
+        case 8,
+             11,
+             12:
+            if betAmountIndex < 1 {
+                legal = false
+                amount = "50¢"
+            }
+        //Needs 10c
+        default:
+            legal = true
+        }
+        
+        if !legal {
+            //show error dialog
+            let error = "A \(amount) minumun is required for \(Constants.betTypeValues[betTypeIndex])"
+            let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    
+        return legal;
     }
     
     @IBAction func topButtonClicked(_ sender: Any) {
         self.performSegue(withIdentifier: "pickerPopup",
                           sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? PickerViewController {
+            vc.delegate = self
+            
+            vc.setSelectedItem(betAmountIndex: currentBetAmountSelectedIndex, betTypeIndex: currentBetTypeSelectedIndex)
+        }
+    }
+    
+    //
+    // PickerView Modal Delegate
+    //
+    
+    func pickerViewSelected(betAmountSelectedIndex: Int, betTypeSelectedIndex: Int) {
+        if checkifBetisLegal(betAmountIndex: betAmountSelectedIndex, betTypeIndex: betTypeSelectedIndex) {
+            if previousBetAmountSelectedIndex != currentBetAmountSelectedIndex || previousBetTypeSelectedIndex != currentBetTypeSelectedIndex {
+                previousBetAmountSelectedIndex = currentBetAmountSelectedIndex
+                previousBetTypeSelectedIndex = currentBetTypeSelectedIndex
+                
+                betAmountString = Constants.betAmountValues[currentBetAmountSelectedIndex]
+                
+                switch(currentBetAmountSelectedIndex) {
+                    case 1: betAmount = 0.50
+                    case 2: betAmount = 1.00
+                    case 3: betAmount = 2.00
+                    case 4: betAmount = 3.00
+                    case 5: betAmount = 4.00
+                    case 6: betAmount = 5.00
+                    case 7: betAmount = 10.00
+                    case 8: betAmount = 20.00
+                    case 9: betAmount = 50.00
+                    case 10: betAmount = 100.00
+                    default: betAmount = 0.10
+                }
+                
+                betTypeString = Constants.betTypeValues[currentBetTypeSelectedIndex]
+                switch(currentBetTypeSelectedIndex) {
+                    //win
+                    case 0,
+                    //place
+                    1,
+                    //show
+                    2,
+                    //across the board
+                    3:
+                    boxbtnDisabled = true
+                    wheelbtnDisabled = true
+                    if(selectedControl == 1 || selectedControl == 2) {
+                        selectedControl = 0
+                        clickedControlFields(tag: 0)
+                    }
+                    case 4,
+                         5,
+                         6,
+                         7,
+                         8:
+                        boxbtnDisabled = false
+                        wheelbtnDisabled = false
+                    default:
+                        boxbtnDisabled = true
+                        wheelbtnDisabled = false
+                        if(selectedControl == 1) {
+                            selectedControl = 0
+                            clickedControlFields(tag: 0)
+                        }
+                }
+                
+                betButton.setTitle("\(betAmountString.uppercased()) \(betTypeString.uppercased())", for: .normal)
+                generateBetCalculatorItems(total: determineTotalBetCalculatorItems())
+            }
+            
+            tableView.reloadData()
+        }
+//        unselectAllBelItems();
+        
+//        selectedItem.selected();
+//        Integer i = (Integer)selectedItem.getTag();
+//        selected_item = i.intValue();
+    }
+    
+    func pickerViewCancelled() {
+        currentBetAmountSelectedIndex = previousBetAmountSelectedIndex
+        currentBetTypeSelectedIndex = previousBetTypeSelectedIndex
     }
     
     //

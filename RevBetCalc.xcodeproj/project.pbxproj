@@ -16,6 +16,7 @@
 		110D143E22A591B200BCF483 /* CalculatorItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D143D22A591B200BCF483 /* CalculatorItemTableViewCell.swift */; };
 		110D144122A6F2E200BCF483 /* CalculatorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D144022A6F2E200BCF483 /* CalculatorItem.swift */; };
 		110D144422A8530A00BCF483 /* DecimalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D144322A8530A00BCF483 /* DecimalExtension.swift */; };
+		11736BC922B191F600C9C9C5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11736BC822B191F600C9C9C5 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		110D143D22A591B200BCF483 /* CalculatorItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorItemTableViewCell.swift; sourceTree = "<group>"; };
 		110D144022A6F2E200BCF483 /* CalculatorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorItem.swift; sourceTree = "<group>"; };
 		110D144322A8530A00BCF483 /* DecimalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalExtension.swift; sourceTree = "<group>"; };
+		11736BC822B191F600C9C9C5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				110D1425229F0B6F00BCF483 /* AppDelegate.swift */,
 				110D142C229F0B7000BCF483 /* Assets.xcassets */,
 				110D1431229F0B7000BCF483 /* Info.plist */,
+				11736BC822B191F600C9C9C5 /* Constants.swift */,
 			);
 			path = RevBetCalc;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				110D143E22A591B200BCF483 /* CalculatorItemTableViewCell.swift in Sources */,
 				110D143A22A1ABDA00BCF483 /* PickerViewController.swift in Sources */,
 				110D144422A8530A00BCF483 /* DecimalExtension.swift in Sources */,
+				11736BC922B191F600C9C9C5 /* Constants.swift in Sources */,
 				110D1428229F0B6F00BCF483 /* MainViewController.swift in Sources */,
 				110D1426229F0B6F00BCF483 /* AppDelegate.swift in Sources */,
 			);
